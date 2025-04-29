@@ -49,3 +49,27 @@ best_model.fit(X_train, y_train)
 y_pred_best = best_model.predict(X_test)
 accuracy_best = accuracy_score(y_test, y_pred_best)
 print(f"Exactitud del modelo Boosting: {accuracy_best:.2f}")
+
+# Paso 3: Guarda el modelo
+model_path = os.path.join(models_dir, "boosting_classifier.pkl")
+
+with open(model_path, "wb") as f:
+    pickle.dump(best_model, f)
+
+print(f"Modelo guardado correctamente en {model_path}")
+
+# Paso 4: Analiza y compara los resultados de los modelos
+print("\nReporte de clasificación para Boosting:")
+print(classification_report(y_test, y_pred_best))
+
+tree_acc = 0.76  # Accuracy reportado del modelo de árbol de decisión
+rf_acc = 0.71  # Accuracy reportado del modelo Random Forest
+boosting_acc = accuracy_best
+
+models_comparison = {"Decision Tree": tree_acc, "Random Forest": rf_acc, "Boosting": boosting_acc}
+
+
+
+print(f"Accuracy - Árbol de Decisión: {tree_acc:.2f}")
+print(f"Accuracy - Random Forest: {rf_acc:.2f}")
+print(f"Accuracy - Boosting: {boosting_acc:.2f}")
